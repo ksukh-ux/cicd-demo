@@ -23,7 +23,7 @@ def add(a, b):
 
 
 
-# Neue Funktion für diese Übung (Branch feature/multiply)
+# Neue Funktion für diese Übung (Branch ksukh-ux-patch-1)
 # Multipliziert zwei Zahlen.
 # Beispiel: multiply(3, 4) liefert 12
 def multiply(a, b):
