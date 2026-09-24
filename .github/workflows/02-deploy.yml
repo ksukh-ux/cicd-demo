@@ -31,7 +31,10 @@ jobs:
     # needs: startet erst, wenn "test" erfolgreich war
     needs: test
     runs-on: ubuntu-latest
-    # Zielumgebung – hier kann man später eine Freigabe verlangen
+    # NEU: gibt die Seiten-URL an nachfolgende Jobs weiter
+    outputs:
+      page_url: ${{ steps.deployment.outputs.page_url }}
+    # Zielumgebung mit Freigabe durch Required Reviewers
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -47,8 +50,18 @@ jobs:
       - id: deployment
         uses: actions/deploy-pages@v4
 
+  # NEU – Stufe 3: Smoke-Test (Spitze der Testpyramide, Kapitel 3.3.1)
+  # Prüft nach dem Deployment, ob die echte Seite erreichbar ist
+  smoke-test:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Seite erreichbar und Inhalt korrekt?
+        # --retry: GitHub Pages braucht nach dem Deploy manchmal einige Sekunden
+        run: |
+          curl --fail --silent --show-error \
+               --retry 5 --retry-delay 10 --retry-all-errors \
+               "${{ needs.deploy.outputs.page_url }}" | grep -q "CI/CD-Demo"
 
 
-
-
-        
+               
