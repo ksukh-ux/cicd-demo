@@ -32,11 +32,12 @@ def multiply(a, b):
 
 # Absichtliche Sicherheitslücke für die DevSecOps-Demo
 # calc_expr(s) definiert eine Funktion, die einen Text s entgegennimmt.
-def calc_expr(s):
+#def calc_expr(s):
     # eval(s) interpretiert diesen Text als Python-Ausdruck und führt ihn aus. Bei s = "2 + 3" kommt beispielsweise 5 heraus.
-    return eval(s)
+    #return eval(s)
 
 # Das Problem: Wenn s aus einer nicht vertrauenswürdigen Eingabe stammt, kann eval 
 # auch unerwünschten Python-Code ausführen. Deshalb erkennt das Sicherheitswerkzeug
 # Bandit diese Zeile als Risiko (B307).
 
+# Schritt 3: Lücke wieder entfernen. Die drei Zeilen löschen und committen (fix: remove insecure eval). Alles wird wieder grün.
