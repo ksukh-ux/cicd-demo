@@ -8,7 +8,7 @@ def add(a, b):
     # Die Einrückung zeigt, dass diese Zeile zur Funktion gehört.
     # return a + b rechnet a + b und gibt das Ergebnis zurück.
     # add(2, 3) liefert also 5. Das ist die „Anwendung“, die wir testen wollen, bewusst winzig. In einem echten Projekt wäre das zum Beispiel die Berechnung einer Versicherungsprämie.
-    return a - b
+    return a + b
 
 
 # CI Pipeline:
