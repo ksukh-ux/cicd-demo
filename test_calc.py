@@ -12,3 +12,12 @@ def test_add():
 # test_calc.py: prüft, ob die Funktion richtig rechnet.
 # Die Pipeline: führt den Test automatisch aus.
 # Den absichtlichen Fehler bauen wir in calc.py ein. Der Test bleibt unverändert, damit er den Fehler erkennt.
+
+# Unit-Test für die neue Funktion multiply
+def test_multiply():
+    assert multiply(3, 4) == 12
+
+
+
+
+
