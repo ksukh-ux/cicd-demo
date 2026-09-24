@@ -1,0 +1,54 @@
+# 02-deploy.yml – Deploy-Pipeline (CD)
+# Veröffentlicht den Ordner site/ auf GitHub Pages,
+# aber nur, wenn vorher alle Tests grün sind.
+name: Deploy
+
+# Trigger: nur bei Push auf main (also nach einem Merge)
+on:
+  push:
+    branches: [main]
+
+# Rechte, die die Pipeline zum Veröffentlichen braucht
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  # Stufe 1: Testen (wie in ci.yml)
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install pytest
+      - run: pytest
+
+  # Stufe 2: Veröffentlichen
+  deploy:
+    # needs: startet erst, wenn "test" erfolgreich war
+    needs: test
+    runs-on: ubuntu-latest
+    # Zielumgebung – hier kann man später eine Freigabe verlangen
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      # Pages vorbereiten
+      - uses: actions/configure-pages@v5
+      # Den Ordner site/ als Paket (Artefakt) hochladen
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      # Das Paket veröffentlichen
+      - id: deployment
+        uses: actions/deploy-pages@v4
+
+
+
+
+
+        
