@@ -20,3 +20,15 @@ def add(a, b):
 # Dadurch schlägt der Test fehl und der Workflow wird rot angezeigt.
 # Zum Beheben ändern wir das Minus wieder in ein Plus und committen erneut.
 # Die Pipeline erkennt hier also absichtlich fehlerhaften Programmcode.
+
+
+
+# Neue Funktion für diese Übung (Branch ksukh-ux-patch-1)
+# Multipliziert zwei Zahlen.
+# Beispiel: multiply(3, 4) liefert 12
+def multiply(a, b):
+    return a * b
+
+
+
+

@@ -1,5 +1,5 @@
-# Importiert die Funktion add aus der Datei calc.py.
-from calc import add
+# Importiert die Funktion add und multiply aus der Datei calc.py.
+from calc import add, multiply
 
 # def test_add(): ist wieder eine Funktion, diesmal ein Test. pytest erkennt Tests automatisch daran, dass Datei und Funktion mit test_ beginnen.
 def test_add():
@@ -12,3 +12,8 @@ def test_add():
 # test_calc.py: prüft, ob die Funktion richtig rechnet.
 # Die Pipeline: führt den Test automatisch aus.
 # Den absichtlichen Fehler bauen wir in calc.py ein. Der Test bleibt unverändert, damit er den Fehler erkennt.
+
+
+# Unit-Test für die neue Funktion multiply
+def test_multiply():
+    assert multiply(3, 4) == 12
