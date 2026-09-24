@@ -1,0 +1,37 @@
+# 03-security.yml – DevSecOps-Pipeline (Kapitel 8.3)
+# Prüft bei jedem Pull Request Codequalität (Lint) und Sicherheit (SAST).
+name: Security
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+# Least Privilege: Der Workflow darf den Code nur lesen
+permissions:
+  contents: read
+
+jobs:
+  # Job 1: Linting – findet echte Programmierfehler (z. B. undefinierte Namen)
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      # Feste Version = reproduzierbare Ergebnisse
+      - run: pip install ruff==0.16.9
+      - run: ruff check --select F .
+
+  # Job 2: SAST – statische Sicherheitsanalyse des Quellcodes
+  sast:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install bandit==1.9.4
+      # -s B101: "assert" wird übersprungen, da pytest-Tests assert nutzen
+      - run: bandit -r . -s B101
